@@ -17,7 +17,7 @@ def addblog(request):
     if request.method == 'POST':
         title = request.POST.get("title")  
         description = request.POST.get("description")  
-        image = request.FILES.get['blog_image']  # ✅ Correct: get the uploaded file
+        image = request.POST.get("blog_image")  # ✅ Correct: get the uploaded file
 
         blog = Blog()  # Create a new blog instance
         blog.title = title
