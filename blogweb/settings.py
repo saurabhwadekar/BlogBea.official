@@ -36,9 +36,17 @@ SECRET_KEY = "django-insecure-abc123$randomkey!@#generated"
 
 ALLOWED_HOSTS = [
     "blogbea-official-3.onrender.com",
+    "blogbeat.dpdns.org",
     "localhost",
     "127.0.0.1"
 ]
+
+# In settings.py
+CSRF_TRUSTED_ORIGINS = [
+    "https://blogbeat.dpdns.org",
+    "http://blogbeat.dpdns.org",
+]
+
 
 
 # spotify
@@ -85,9 +93,6 @@ INSTALLED_APPS = [
     'roomapp' , 
     'podcasts',
     'channels',
-
-    
-
 ]
 
 
