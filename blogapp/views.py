@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required   #its basic use is that to login to auth
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.contrib import messages
 
 
 
@@ -12,25 +12,38 @@ from django.urls import reverse
 # Create your views here.
 
 
+
 @login_required
 def addblog(request):
-    if request.method == 'POST':
-        title = request.POST.get("title")  
-        description = request.POST.get("description")  
-        image = request.POST.get("blog_image")  # ✅ Correct: get the uploaded file
 
-        blog = Blog()  # Create a new blog instance
-        blog.title = title
-        blog.description = description
-        blog.blog_image = image  # ✅ Use the correct variable: image
-        blog.user = request.user
+    if request.method == 'POST':
+
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        image = request.FILES.get('blog_image')
+
+        # Basic validation
+        if not title or not description:
+            messages.error(request, "Title and description are required.")
+            return redirect('addblog')
+
+        # Create blog safely
+        blog = Blog(
+            title=title,
+            description=description,
+            blog_image=image,
+            user=request.user
+        )
+
         blog.save()
+
+        messages.success(request, "Blog created successfully.")
+
         return redirect('home')
 
-    else:
-        return render(request, "addblog.html")
+    return render(request, 'addblog.html')
 
-        
+
         
 
 # changes

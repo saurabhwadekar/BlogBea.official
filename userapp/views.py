@@ -7,6 +7,7 @@ from userapp.models import FriendRequest
 from django.contrib import messages
 
 
+
 def register(request):
     if request.user.is_authenticated:
         return redirect("home")
@@ -17,13 +18,29 @@ def register(request):
         email = request.POST.get("email")
         password = request.POST.get("password")
 
-        user = User.objects.create_user(
-            username=email, first_name=firstname, last_name=lastname, password=password
-        )
-        user.save()
-        return redirect("login")  # Fix redirect URL
-    return render(request, "registers.html")
+        # Basic validation
+        if not firstname or not lastname or not email or not password:
+            messages.error(request, "All fields are required.")
+            return redirect("register")
 
+        # Check if email already exists (since you use email as username)
+        if User.objects.filter(username=email).exists():
+            messages.error(request, "Email is already registered.")
+            return redirect("register")
+
+        # Create user
+        user = User.objects.create_user(
+            username=email,
+            first_name=firstname,
+            last_name=lastname,
+            email=email,
+            password=password
+        )
+
+        messages.success(request, "Account created successfully.")
+        return redirect("login")
+
+    return render(request, "registers.html")
 
 
 def home(request):
