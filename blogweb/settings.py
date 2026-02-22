@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECRET_KEY = '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'
-DEBUG = False
+DEBUG = True
 
 
 SECRET_KEY = "django-insecure-abc123$randomkey!@#generated"
@@ -132,11 +132,11 @@ CHANNEL_LAYERS = {
 # }
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',                 # 💡 Add this at the very top (if using CORS)
+    'corsheaders.middleware.CorsMiddleware',                
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',             # 🔒 Keeps CSRF protection
+    'django.middleware.csrf.CsrfViewMiddleware',             #  Keeps CSRF protection
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',  # Make sure this is here!
@@ -171,15 +171,28 @@ WSGI_APPLICATION = 'blogweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-import dj_database_url
+
+# by defualt it uses sqlite3 but we will use postgresql for production
+# import dj_database_url
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgress',
+        'PASSWORD': 'sy14a',
+        'HOST': '13.232.188.1',
+        'PORT': '5432',
     }
 }
-
 
 
 

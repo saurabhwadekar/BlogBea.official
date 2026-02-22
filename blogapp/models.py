@@ -5,16 +5,7 @@ import random
 import string
 import time
 
-# Create your models here.
-# class Blog(models.Model):
-#     title = models.CharField(max_length=50)
-#     description=models.CharField(max_length=200)
-#     create_at=models.DateField(auto_now_add=True)
-#     blog_image=models.ImageField(upload_to="blogimages/")
-#     user=models.ForeignKey(User,on_delete=models.CASCADE) #it means delete all user blog
-#     custom_date=models.DateTimeField(null=True,blank=True)
-#     custom_choices= models.DateTimeField(null=True, blank=True)
-# for savedblog
+
 
      
 from django.db import models
